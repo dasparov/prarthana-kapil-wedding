@@ -28,7 +28,7 @@ apps-script/   Google Apps Script backing the RSVP form (managed with clasp)
 ## What guests get
 
 1. YES/NO card (NO runs away), then 3 quiz questions.
-2. **Ride to Corjuem**: optional ~25 s moped game. Tap/space to jump potholes, coconuts and cows; biscuits get tossed back and a dog leaps to catch each one. Skippable at any time (Skip button, Esc); skipped automatically for reduced-motion users. Course is the `COURSE` table in the `Ride` module.
+2. **Ride to Corjuem**: optional ~9 s moped game. Tap/space to jump a pothole, a coconut and a cow; biscuits get tossed back and a dog leaps to catch each one. Skippable at any time (Skip button, Esc); skipped automatically for reduced-motion users. Course is the `COURSE` table in the `Ride` module.
 3. Arrival plays the Goan **brass band** (synthesised, no audio files); it also plays on the invitation via "Cue the brass band".
 4. Invitation + RSVP.
 

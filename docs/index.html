@@ -1135,16 +1135,13 @@ button.r-pill{cursor:pointer}
     const hills = $('rHills'), town = $('rTown'), dash = $('rDash');
     const hud = $('rHud'), fill = $('rFill'), me = $('rMe'), score = $('rScore');
     const panel = $('rPanel'), pTitle = $('rPanelTitle'), pText = $('rPanelText'), pGo = $('rGo'), pSkip = $('rPanelSkip');
-    const LENGTH = 8800, V0 = 330, V1 = 410, GRAVITY = 2000, JUMP = 820, PACK_W = 430, VENUE_AT = LENGTH + 260;
+    const LENGTH = 3300, V0 = 340, V1 = 400, GRAVITY = 2000, JUMP = 820, PACK_W = 430, VENUE_AT = LENGTH + 260;
     const WHEEL_HALF = 60, WHEEL_OFFSET = 160;              // wheel hit box: centre and half-width, in stage px from moped left
     // [distance, kind, biscuit height above the road]
-    const COURSE = [
-      [800, 'b', 110], [1000, 'b', 110], [1200, 'b', 110],
-      [1650, 'pothole'], [2250, 'coco'], [2250, 'b', 290], [2850, 'cow'], [2850, 'b', 320],
-      [3350, 'pothole'], [3700, 'b', 110], [3850, 'b', 280], [4300, 'coco'],
-      [4850, 'pothole'], [5250, 'pothole'], [5700, 'b', 240], [5800, 'cow'], [5800, 'b', 320], [5900, 'b', 240],
-      [6400, 'b', 110], [6550, 'b', 110], [6900, 'coco'], [7400, 'cow'], [7900, 'pothole'], [7900, 'b', 290],
-      [8300, 'b', 110], [8450, 'b', 110]
+    const COURSE = [                                        // ~9 s ride: one of each obstacle, then a pothole
+      [450, 'b', 110], [650, 'b', 110],
+      [1000, 'pothole'], [1500, 'coco'], [1500, 'b', 290], [2050, 'cow'], [2050, 'b', 320],
+      [2550, 'b', 110], [2700, 'b', 240], [2950, 'pothole'], [3200, 'b', 110]
     ];
     const HIT = { pothole: [46, 3], coco: [30, 34], cow: [64, 54] };   // [hit width, hit height]
     const GLYPH = { b: '<span>🍪</span>', coco: '🥥', cow: '🐄', pothole: '' };
@@ -1303,7 +1300,7 @@ button.r-pill{cursor:pointer}
         state = 'run'; v = V0 * 0.4;
         const tip = document.createElement('span'); tip.className = 'r-pill r-tip'; tip.textContent = '👆 Tap anywhere to jump';
         el.appendChild(tip); setTimeout(() => tip.remove(), 3500);
-      }, i * 650));
+      }, i * 450));
     }
     function reset() {
       d = 0; v = 0; y = 0; vy = 0; air = false; buffer = 0; slow = 0; gap = PACK_GAP; exitX = 0; fed = 0; bonks = 0; next = 0;
