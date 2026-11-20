@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="256 281 103 74" width="103" height="74"><style>
+.leg{transform-box:fill-box;transform-origin:50% 8%;animation:la .34s ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+.leg.b{animation-name:lb}
+@keyframes la{from{transform:rotate(38deg)}to{transform:rotate(-34deg)}}
+@keyframes lb{from{transform:rotate(-34deg)}to{transform:rotate(38deg)}}
+.bob{animation:bob .34s ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+@keyframes bob{from{transform:translateY(1px) rotate(-2deg)}to{transform:translateY(-5px) rotate(2deg)}}
+.tail{transform-box:fill-box;transform-origin:100% 100%;animation:wag .22s ease-in-out infinite alternate}
+@keyframes wag{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.ears{transform-box:fill-box;transform-origin:50% 100%;animation:flap .17s ease-in-out infinite alternate}
+@keyframes flap{from{transform:rotate(-10deg)}to{transform:rotate(12deg)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin .45s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ride{animation:ride .22s ease-in-out infinite alternate}
+@keyframes ride{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+.hair{transform-box:fill-box;transform-origin:100% 40%;animation:hair .18s ease-in-out infinite alternate}
+@keyframes hair{from{transform:rotate(-7deg) scaleX(.94)}to{transform:rotate(5deg) scaleX(1.06)}}
+.puff{transform-box:fill-box;transform-origin:center;animation:puff 1s ease-out infinite}
+@keyframes puff{0%{transform:translate(0,0) scale(.4);opacity:.9}100%{transform:translate(-46px,-14px) scale(1.8);opacity:0}}
+.speed{stroke-dasharray:18 14;animation:speed .35s linear infinite}
+@keyframes speed{to{stroke-dashoffset:32}}
+.road{animation:road .4s linear infinite}
+@keyframes road{to{stroke-dashoffset:60}}
+.beep{transform-box:fill-box;transform-origin:center;animation:beep 1.6s ease-in-out infinite}
+@keyframes beep{0%,55%,100%{transform:scale(0) rotate(-12deg);opacity:0}62%{transform:scale(1.25) rotate(-6deg);opacity:1}70%,88%{transform:scale(1) rotate(-6deg);opacity:1}}
+.palm{transform-box:fill-box;transform-origin:50% 100%;animation:sway 2.6s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style><g transform="translate(300,324.4) scale(0.95)"><g style="--d:-0.21s"><g class="bob"><g class="tail"><path d="M-29,-6 C-46,-18 -42,-40 -25,-31" fill="none" stroke="#1d2742" stroke-width="12" stroke-linecap="round" /><path d="M-29,-6 C-46,-18 -42,-40 -25,-31" fill="none" stroke="#c98a4b" stroke-width="7" stroke-linecap="round" /></g><g transform="translate(-20,3)"><rect class="leg b" x="-3.6" y="0" width="7.2" height="23" rx="3.6" fill="#9c6633" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /></g><g transform="translate(20,3)"><rect class="leg a" x="-3.6" y="0" width="7.2" height="23" rx="3.6" fill="#9c6633" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /></g><g transform="translate(-13,3)"><rect class="leg a" x="-3.6" y="0" width="7.2" height="23" rx="3.6" fill="#c98a4b" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /></g><g transform="translate(26,3)"><rect class="leg b" x="-3.6" y="0" width="7.2" height="23" rx="3.6" fill="#c98a4b" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /></g><ellipse cx="0" cy="0" rx="32" ry="14" fill="#c98a4b" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /><ellipse cx="21" cy="3" rx="8" ry="7" fill="#f3dcb8" /><g class="ears"><path d="M26,-22 L28,-37 L36,-25Z" fill="#9c6633" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /></g><path d="M50,-4" /><ellipse cx="46" cy="-2" rx="3.2" ry="5" fill="#c93650" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /><circle cx="33" cy="-14" r="12.5" fill="#c98a4b" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /><ellipse cx="44" cy="-10" rx="9.5" ry="6.5" fill="#c98a4b" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /><circle cx="52.5" cy="-12" r="3" fill="#1d2742" /><circle cx="36" cy="-17" r="2.4" fill="#1d2742" stroke="#1d2742" stroke-width="1" /><path d="M30,-23 L33,-35 L39,-23Z" fill="#c98a4b" stroke="#1d2742" stroke-width="2.4" stroke-linejoin="round" /></g></g></g></svg>

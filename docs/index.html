@@ -322,6 +322,123 @@ main{position:relative;z-index:2}
 .restart:active{translate:0 3px;box-shadow:none}
 .note{font-size:11px;color:var(--muted);margin:16px 0 0;background:rgba(255,253,248,.92);padding:4px 10px;border-radius:999px}
 
+/* live Goa sky: phase, sun/moon position and countdown follow the real time in Goa (IST) */
+html[data-sky=dawn]{--sky-a:rgba(247,160,140,.55);--sky-b:rgba(253,226,180,.15)}
+html[data-sky=day]{--sky-a:rgba(140,195,250,.5);--sky-b:rgba(246,241,228,0)}
+html[data-sky=golden]{--sky-a:rgba(255,150,70,.55);--sky-b:rgba(255,214,140,.18)}
+html[data-sky=dusk]{--sky-a:rgba(58,46,124,.9);--sky-b:rgba(236,110,96,.6)}
+html[data-sky=night]{--sky-a:rgba(9,16,44,.95);--sky-b:rgba(24,40,92,.86)}
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:linear-gradient(180deg,var(--sky-a,transparent) 0%,var(--sky-b,transparent) 80%)}
+.stars{position:absolute;inset:0 0 30% 0;opacity:0;transition:opacity 1.2s}
+html[data-sky=dusk] .stars{opacity:.5}
+html[data-sky=night] .stars{opacity:1}
+.stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:twinkle var(--t,3s) ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.25;transform:scale(.7)}to{opacity:1;transform:scale(1.2)}}
+.orb{position:absolute;left:var(--ox,75%);top:var(--oy,18%);width:var(--os,92px);height:var(--os,92px);
+  margin:calc(var(--os,92px) / -2) 0 0 calc(var(--os,92px) / -2);border-radius:50%;background:var(--sun);
+  box-shadow:0 0 0 12px rgba(244,182,58,.22),0 0 70px 24px rgba(244,182,58,.35)}
+html[data-sky=dawn] .orb{background:#f7a35c;box-shadow:0 0 0 12px rgba(247,163,92,.22),0 0 70px 24px rgba(247,163,92,.35)}
+html[data-sky=golden] .orb{background:#f58a2c;box-shadow:0 0 0 14px rgba(245,138,44,.25),0 0 90px 34px rgba(245,138,44,.4)}
+html[data-sky=dusk] .orb{background:#ef5f45;box-shadow:0 0 0 16px rgba(239,95,69,.25),0 0 100px 40px rgba(239,95,69,.4)}
+html[data-sky=night] .orb{background:transparent;box-shadow:inset -18px 8px 0 0 #fdf3d0,0 0 50px 4px rgba(253,243,208,.18)}
+.festoon{position:fixed;left:0;right:0;top:0;height:90px;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.2s}
+html[data-sky=dusk] .festoon,html[data-sky=night] .festoon,html.live .festoon{opacity:1}
+.festoon svg{display:block;width:100%;height:100%;overflow:visible}
+.festoon .bulb{animation:glow var(--t,1.6s) ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+@keyframes glow{from{opacity:.35}to{opacity:1}}
+.skychip{position:fixed;z-index:55;top:calc(12px + env(safe-area-inset-top));left:calc(10px + env(safe-area-inset-left));
+  max-width:calc(100vw - 84px);margin:0;padding:7px 12px;border-radius:999px;background:var(--ivory);color:var(--text);
+  border:2px solid var(--cobalt);box-shadow:0 3px 0 var(--cobalt);font-size:12px;font-weight:700;line-height:1.25}
+html.live .skychip{background:var(--sun);transform-origin:0 50%;animation:chippulse 1.8s ease-in-out infinite}
+@keyframes chippulse{0%,100%{transform:none}50%{transform:scale(1.05) rotate(-1.5deg)}}
+.fw{position:fixed;z-index:1;width:0;height:0;pointer-events:none}
+.fw i{position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px;border-radius:50%;background:var(--c);box-shadow:0 0 8px 2px var(--c);
+  animation:fw 1.4s cubic-bezier(.15,.7,.3,1) forwards}
+@keyframes fw{0%{transform:rotate(var(--a)) translateX(0) scale(1.5);opacity:1}75%{opacity:1}100%{transform:rotate(var(--a)) translateX(var(--r)) scale(.3);opacity:0}}
+html[data-sky=dusk] .passed,html[data-sky=night] .passed,html[data-sky=dusk] .ridescore,html[data-sky=night] .ridescore{color:var(--sun)}
+html[data-sky=dusk] .invited,html[data-sky=night] .invited{color:var(--ivory);text-shadow:0 3px 0 rgba(0,0,0,.3)}
+html[data-sky=dusk] .invited .ch:nth-child(3n),html[data-sky=night] .invited .ch:nth-child(3n){color:#ff9fb0}
+html[data-sky=dusk] .invited .ch:nth-child(4n),html[data-sky=night] .invited .ch:nth-child(4n){color:#a9c8ff}
+.ridescore{margin:14px 0 0;font-weight:700;font-size:14px;color:var(--cobalt)}
+
+/* the brass band button on the invitation */
+.dance.playing .dancers span{animation-duration:.21s}
+.band-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 16px;border-radius:999px;cursor:pointer;
+  background:var(--pill-bg);color:var(--pill-text);border:2px solid var(--sun-dark);box-shadow:0 3px 0 var(--sun-dark);
+  font:800 12px/1 var(--sans);letter-spacing:.12em;transition:transform .2s var(--bounce)}
+.band-btn:hover{transform:rotate(-3deg) scale(1.05)}
+.band-btn:active{translate:0 2px;box-shadow:0 1px 0 var(--sun-dark)}
+
+/* ride to Corjuem mini-game */
+body.riding{overflow:hidden}
+body.riding .sky{background:linear-gradient(180deg,var(--sky-a,transparent) 0%,var(--sky-b,transparent) 80%),rgba(246,241,228,.74)}
+body.riding .floaties,body.riding .act,body.riding .skychip{display:none}
+.ride{position:fixed;inset:0;z-index:50;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;cursor:pointer}
+.r-stage{position:absolute;left:0;bottom:0;height:420px;transform-origin:0 100%}
+.r-layer{position:absolute;left:0;background-repeat:repeat-x;will-change:transform}
+.r-hills{bottom:104px;height:180px;background-image:url("assets/ride-hills.svg");background-size:1200px 180px}
+.r-town{bottom:88px;height:300px;background-image:url("assets/ride-town.svg");background-size:1600px 300px}
+.r-road{position:absolute;left:0;right:0;bottom:0;height:90px;background:#e3eaf6;border-top:3px solid var(--text)}
+.r-road::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16px;background:#cdd8ec}
+.r-dash{bottom:56px;height:6px;background:repeating-linear-gradient(90deg,#fff 0 46px,transparent 46px 92px)}
+.r-shade{position:absolute;inset:0;pointer-events:none;transition:background .8s}
+html[data-sky=dusk] .r-shade{background:rgba(40,30,90,.22)}
+html[data-sky=night] .r-shade{background:rgba(10,16,48,.5)}
+.r-ob{position:absolute;left:0;bottom:26px;line-height:1;will-change:transform}
+.r-venue{width:440px;height:340px;bottom:22px}
+.r-venue img{display:block;width:100%;height:100%}
+.r-pothole{width:92px;height:20px;bottom:16px;border-radius:50%;background:#46506b;border:3px solid var(--text);box-shadow:inset 0 6px 0 rgba(0,0,0,.35)}
+.r-coco{font-size:44px}
+.r-cow{font-size:88px;bottom:18px}
+.r-biscuit{font-size:34px}
+.r-biscuit span{display:inline-block;animation:bob 1s ease-in-out infinite}
+.r-ob.knocked{transition:translate .6s cubic-bezier(.2,.6,.4,1),rotate .6s,opacity .6s;translate:90px -110px;rotate:220deg;opacity:0}
+.r-pothole.knocked{translate:none;rotate:none;opacity:.35}
+.r-pack{position:absolute;left:0;bottom:16px;width:430px;height:99px;will-change:transform}
+.r-pack img,.r-moped img{display:block;width:100%;height:100%}
+.r-moped{position:absolute;left:0;bottom:24px;width:238px;height:206px;transform-origin:60% 100%;will-change:transform}
+.r-moped.hit img{animation:wob .5s ease}
+@keyframes wob{0%,100%{transform:none}20%{transform:rotate(-7deg) translateX(-6px)}45%{transform:rotate(6deg)}70%{transform:rotate(-3deg)}}
+.r-beam{position:absolute;left:204px;bottom:40px;width:360px;height:110px;opacity:0;transition:opacity .8s;pointer-events:none;
+  clip-path:polygon(0 44%,100% 0,100% 100%,0 56%);background:linear-gradient(90deg,rgba(255,236,160,.75),rgba(255,236,160,0))}
+html[data-sky=dusk] .r-beam,html[data-sky=night] .r-beam{opacity:1}
+.r-float{position:absolute;left:0;bottom:0;z-index:5;pointer-events:none;white-space:nowrap;font:900 20px/1 var(--sans);color:#fff;
+  background:var(--coral);border:2px solid var(--text);border-radius:8px;padding:4px 8px;animation:rfloat .9s ease-out forwards}
+.r-float.good{background:var(--sun);color:var(--text)}
+@keyframes rfloat{0%{translate:0 0;scale:.4;opacity:0}20%{scale:1.15;opacity:1}100%{translate:0 -70px;scale:1;opacity:0}}
+.r-toss{position:absolute;left:0;bottom:0;z-index:5;font-size:30px;line-height:1;pointer-events:none;animation:toss .55s linear forwards}
+@keyframes toss{0%{translate:0 0;rotate:0deg}50%{translate:calc(var(--dx) / 2) calc(var(--dy) / 2 - 70px)}100%{translate:var(--dx) var(--dy);rotate:-360deg;scale:.85}}
+.r-dog{position:absolute;left:0;bottom:12px;z-index:4;pointer-events:none;transform-origin:30% 100%;animation:leap .8s both}
+.r-dog img{display:block;width:100%;height:100%}
+@keyframes leap{0%{translate:0 0;rotate:0deg;animation-timing-function:cubic-bezier(.2,.6,.4,1)}
+  55%{translate:var(--lx) var(--ly);rotate:-16deg;scale:1.08;animation-timing-function:cubic-bezier(.6,0,.8,.4)}
+  85%{opacity:1}100%{translate:calc(var(--lx) * 1.5) 0;rotate:6deg;opacity:0}}
+.r-hud{position:absolute;left:0;right:0;top:calc(12px + env(safe-area-inset-top));z-index:6;display:flex;align-items:center;gap:10px;
+  padding:0 66px 0 12px;pointer-events:none}
+.r-pill{pointer-events:auto;flex:none;padding:7px 12px;border-radius:999px;background:var(--ivory);color:var(--text);border:2px solid var(--cobalt);
+  box-shadow:0 3px 0 var(--cobalt);font:800 13px/1.1 var(--sans);letter-spacing:.04em}
+button.r-pill{cursor:pointer}
+.r-score.bump{animation:jelly .4s ease}
+.r-track{position:relative;flex:1;max-width:440px;height:14px;margin:0 auto;border-radius:999px;background:var(--ivory);border:2px solid var(--cobalt)}
+.r-track .fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;background:var(--sun)}
+.r-track .me{position:absolute;left:0;top:50%;font-size:22px;line-height:1;transform:translate(-50%,-60%) scaleX(-1)}
+.r-track .end{position:absolute;right:-12px;top:50%;font-size:20px;line-height:1;transform:translateY(-60%)}
+.r-panel{position:absolute;left:0;right:0;top:max(84px,16vh);z-index:7;width:min(92vw,400px);margin:0 auto;cursor:auto;text-align:center;
+  background:var(--ivory);border:2px solid var(--cobalt);border-radius:20px;box-shadow:8px 8px 0 var(--cobalt);padding:24px 20px 18px;
+  animation:popin .5s var(--bounce) both}
+.r-panel h2{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.15;margin:0 0 10px}
+.r-panel h2:focus{outline:none}
+.r-panel p{margin:0 0 18px;font-size:15px;line-height:1.45;color:var(--muted)}
+.r-panel p b{color:var(--text)}
+.r-panel .linkish{display:block;margin:8px auto 0}
+.r-count{position:absolute;left:50%;top:26%;z-index:7;margin-left:-100px;width:200px;text-align:center;pointer-events:none;
+  font:400 92px/1 var(--serif);color:var(--ivory);-webkit-text-stroke:3px var(--cobalt);text-shadow:6px 6px 0 var(--cobalt);animation:countpop .8s var(--bounce) both}
+@keyframes countpop{0%{transform:scale(2.4) rotate(-12deg);opacity:0}30%{transform:scale(1) rotate(-4deg);opacity:1}80%{opacity:1}100%{transform:scale(.8);opacity:0}}
+.r-tip{position:absolute;left:50%;bottom:calc(50% - 10px);z-index:6;transform:translateX(-50%);pointer-events:none;white-space:nowrap;
+  animation:tip 3.4s ease forwards}
+@keyframes tip{0%,100%{opacity:0}12%,80%{opacity:1}}
+
 @media (max-width:480px){
   .card{min-height:480px;padding:34px 18px 30px;border-radius:20px;box-shadow:6px 6px 0 var(--cobalt)}
   .title{font-size:30px}
@@ -344,19 +461,22 @@ main{position:relative;z-index:2}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .taunt.on{transform:translateX(-50%)}
   .act,.zoomer{display:none}
-  .curtain{display:none}
+  .curtain,.fw{display:none}
 }
 </style>
 </head>
 <body>
 <button type="button" class="sfx" id="sfxBtn" aria-pressed="true" aria-label="Sound effects">🔊</button>
 <div class="curtain" id="curtain" aria-hidden="true"><span>🛵</span></div>
+<div class="sky" aria-hidden="true"><div class="stars" id="stars"></div><i class="orb" id="orb"></i></div>
+<div class="festoon" id="festoon" aria-hidden="true"></div>
+<p class="skychip" id="skyChip"></p>
 
 <div class="floaties" aria-hidden="true">
   <span style="left:4%;top:12%;--t:8s">🌴</span><span style="left:86%;top:18%;--t:10s">🥥</span>
   <span style="left:8%;top:62%;--t:11s">🐟</span><span style="left:86%;top:62%;--t:9s">🌺</span>
   <span style="left:17%;top:36%;--t:12s">🐓</span><span style="left:77%;top:40%;--t:8.5s">🐕</span>
-  <span style="left:47%;top:84%;--t:10.5s">🦀</span><span style="left:30%;top:6%;--t:9.5s">☀️</span>
+  <span style="left:47%;top:84%;--t:10.5s">🦀</span><span style="left:30%;top:6%;--t:9.5s">🐚</span>
   <span style="left:64%;top:8%;--t:11.5s">🐈</span>
 </div>
 <div class="act a1" aria-hidden="true"><img src="assets/parade.svg" alt="" width="830" height="300"></div>
@@ -412,6 +532,7 @@ main{position:relative;z-index:2}
     <p class="passed">You passed!</p>
     <h2 class="invited" id="invitedTitle" tabindex="-1" aria-label="You’re invited!"></h2>
     <span class="pill">GUEST STATUS: CONFIRMED</span>
+    <p class="ridescore" id="rideScore" hidden></p>
     <button type="button" class="arrow" id="arrowBtn" aria-label="Scroll down to the invitation">↓</button>
   </section>
 
@@ -437,6 +558,7 @@ main{position:relative;z-index:2}
         <span class="inv-stamp" aria-hidden="true">QUIZ<br>PASSED<br>★ 2027 ★</span>
         <p><span class="heart" aria-hidden="true">♥</span></p>
         <p class="dance">Save us a dance. ♡<span class="dancers" aria-hidden="true"><span>💃</span><span>🕺</span></span></p>
+        <button type="button" class="band-btn" id="bandBtn">🎺 CUE THE BRASS BAND</button>
 
         <form class="rsvp" id="rsvpForm" novalidate>
           <h3>RSVP 🐓</h3>
@@ -471,6 +593,31 @@ main{position:relative;z-index:2}
     <p class="note">Snapshots are placeholder drawings for now.</p>
   </section>
 </main>
+
+<section class="ride" id="ride" hidden aria-label="Mini-game: ride the moped to Corjuem">
+  <div class="r-stage" id="rStage">
+    <div class="r-layer r-hills" id="rHills"></div>
+    <div class="r-layer r-town" id="rTown"></div>
+    <div class="r-road"></div>
+    <div class="r-layer r-dash" id="rDash"></div>
+    <div id="rWorld"></div>
+    <div class="r-shade"></div>
+    <div class="r-pack" id="rPack"><img src="assets/pack.svg" alt="" width="506" height="116"></div>
+    <div id="rObs"></div>
+    <div class="r-moped" id="rMoped"><div class="r-beam"></div><img src="assets/moped.svg" alt="" width="280" height="242"></div>
+  </div>
+  <div class="r-hud" id="rHud" hidden>
+    <button type="button" class="r-pill" id="rSkip">Skip ›</button>
+    <div class="r-track" aria-hidden="true"><span class="fill" id="rFill"></span><span class="me" id="rMe">🛵</span><span class="end">⛪</span></div>
+    <span class="r-pill r-score" id="rScore" aria-live="polite">🍪 0</span>
+  </div>
+  <div class="r-panel" id="rPanel" role="dialog" aria-labelledby="rPanelTitle">
+    <h2 id="rPanelTitle" tabindex="-1"></h2>
+    <p id="rPanelText"></p>
+    <button type="button" class="btn btn-yes btn-wide" id="rGo"></button>
+    <button type="button" class="linkish" id="rPanelSkip">Skip the ride</button>
+  </div>
+</section>
 
 <script>
 (() => {
@@ -529,14 +676,88 @@ main{position:relative;z-index:2}
         l.connect(lg); lg.connect(o.frequency); l.start(t0); l.stop(t0 + dur); }
       env(g, t0, opts.attack || 0.01, vol, dur); o.connect(g); g.connect(dest || master); o.start(t0); o.stop(t0 + dur + 0.02);
     }
-    function noise(t0, dur, vol, f0, f1, q = 1.5) {
+    function noise(t0, dur, vol, f0, f1, q = 1.5, dest = master) {
       const len = Math.ceil(ctx.sampleRate * dur), buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
       for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
       const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
       s.buffer = buf; f.type = 'bandpass'; f.Q.value = q; f.frequency.setValueAtTime(f0, t0); f.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
-      env(g, t0, 0.02, vol, dur); s.connect(f); f.connect(g); g.connect(master); s.start(t0); s.stop(t0 + dur);
+      env(g, t0, 0.02, vol, dur); s.connect(f); f.connect(g); g.connect(dest); s.start(t0); s.stop(t0 + dur);
     }
     function filt(type, freq, q = 1) { const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q; f.connect(master); return f; }
+
+    /* Goan brass band: an original 2/4 march for trumpets, trombones, tuba and drums (~8 s) */
+    const BEAT = 0.42, SCALE = [0, 2, 4, 5, 7, 9, 11];
+    const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    const thirdBelow = (m) => {
+      const i = SCALE.indexOf(m % 12), j = i - 2;
+      return (Math.floor(m / 12) + (j < 0 ? -1 : 0)) * 12 + SCALE[(j + 7) % 7];
+    };
+    const TUNE = [[67, .5], [69, .5],
+      [72, 1], [76, .5], [72, .5], [79, 1], [76, 1], [77, .5], [76, .5], [74, .5], [76, .5], [77, 1], [74, 1],
+      [74, .5], [76, .5], [77, .5], [79, .5], [81, .5], [79, .5], [77, .5], [74, .5],
+      [76, .5], [79, .5], [76, .5], [72, .5], [74, .5], [79, .5], [83, .5], [86, .5], [84, 1.5]];
+    const BARS = ['C', 'C', 'G7', 'G7', 'Dm', 'G7', 'C', 'G7', 'C'];
+    const CHORD = { C: [55, 60, 64], G7: [53, 59, 62], Dm: [53, 57, 62] };
+    const BASS = { C: [36, 43], G7: [43, 38], Dm: [38, 45] };
+    const HARMONY_BARS = [0, 1, 6, 7, 8];
+    let bandEnd = 0;
+    function brass(t, dur, f, vol, dest, bright) {
+      const g = ctx.createGain(), lp = ctx.createBiquadFilter(), hold = Math.max(t + 0.1, t + dur - 0.04);
+      lp.type = 'lowpass'; lp.Q.value = 1.5;
+      lp.frequency.setValueAtTime(f * 1.2, t);
+      lp.frequency.exponentialRampToValueAtTime(f * bright, t + 0.045);
+      lp.frequency.exponentialRampToValueAtTime(f * bright * 0.55, hold + 0.08);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.025);
+      g.gain.exponentialRampToValueAtTime(vol * 0.72, t + 0.1);
+      g.gain.setValueAtTime(vol * 0.72, hold);
+      g.gain.exponentialRampToValueAtTime(0.0001, hold + 0.08);
+      lp.connect(g); g.connect(dest);
+      let vib = null;
+      if (dur > 0.3) {                                     // delayed vibrato on held notes
+        const lfo = ctx.createOscillator(); vib = ctx.createGain(); lfo.frequency.value = 5.5;
+        vib.gain.setValueAtTime(0, t); vib.gain.linearRampToValueAtTime(f * 0.012, t + dur);
+        lfo.connect(vib); lfo.start(t); lfo.stop(hold + 0.1);
+      }
+      for (const det of [-6, 7]) {
+        const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = det;
+        if (vib) vib.connect(o.frequency);
+        o.connect(lp); o.start(t); o.stop(hold + 0.1);
+      }
+    }
+    function kick(t, dest, vol) {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.setValueAtTime(130, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.14);
+      env(g, t, 0.005, vol, 0.22); o.connect(g); g.connect(dest); o.start(t); o.stop(t + 0.25);
+    }
+    function band(t) {
+      if (t < bandEnd) return;                             // never stack two bands
+      const bus = ctx.createDynamicsCompressor(); bus.threshold.value = -16; bus.ratio.value = 4; bus.connect(master);
+      bandEnd = t + 19 * BEAT + 0.8;
+      for (let i = 0; i < 8; i++) noise(t + i * BEAT / 8, 0.06, 0.05 + i * 0.012, 2200, 1800, 0.8, bus);  // pickup roll
+      let at = 0;
+      for (const [m, beats] of TUNE) {
+        const bar = Math.floor((at - 1) / 2), tt = t + at * BEAT, dur = beats * BEAT * 0.9;
+        brass(tt, dur, hz(m), 0.2, bus, 6);
+        if (HARMONY_BARS.includes(bar)) brass(tt, dur, hz(thirdBelow(m)), 0.11, bus, 5);
+        at += beats;
+      }
+      BARS.forEach((name, k) => {
+        const t0 = t + (1 + 2 * k) * BEAT, [root, fifth] = BASS[name];
+        if (k === BARS.length - 1) {                       // final chord + cymbal crash
+          brass(t0, BEAT * 1.6, hz(root), 0.3, bus, 4);
+          CHORD[name].forEach((c) => brass(t0, BEAT * 1.6, hz(c), 0.07, bus, 4));
+          kick(t0, bus, 0.6); noise(t0, 1.6, 0.18, 7000, 5000, 0.4, bus);
+          return;
+        }
+        [[0, root], [1, fifth]].forEach(([beat, m]) => {   // oom-pah
+          brass(t0 + beat * BEAT, BEAT * 0.45, hz(m), 0.28, bus, 4);
+          kick(t0 + beat * BEAT, bus, 0.4);
+          CHORD[name].forEach((c) => brass(t0 + (beat + 0.5) * BEAT, BEAT * 0.3, hz(c), 0.05, bus, 5));
+          noise(t0 + (beat + 0.5) * BEAT, 0.09, 0.09, 2400, 1600, 0.9, bus);
+        });
+      });
+    }
     const S = {
       pop: (t) => osc('sine', t, 0.12, 0.35, [[0, 520], [0.1, 1300]]),
       boing: (t) => osc('sine', t, 0.35, 0.3, [[0, 160], [0.3, 620]], null, { vib: [16, 60] }),
@@ -552,7 +773,8 @@ main{position:relative;z-index:2}
       bawk: (t) => { const f = filt('bandpass', 1300, 2); osc('sawtooth', t, 0.12, 0.4, [[0, 700], [0.1, 1100]], f); osc('sawtooth', t + 0.16, 0.25, 0.4, [[0, 900], [0.24, 500]], f, { vib: [35, 30] }); },
       bonk: (t) => { osc('sine', t, 0.22, 0.6, [[0, 520], [0.2, 70]]); noise(t, 0.09, 0.4, 500, 200, 0.8); },
       fanfare: (t) => { [523, 659, 784, 1047].forEach((f, i) => osc('triangle', t + i * 0.11, 0.18, 0.25, [[0, f], [0.17, f]]));
-        [523, 659, 784].forEach((f) => osc('triangle', t + 0.48, 0.7, 0.16, [[0, f], [0.7, f]])); }
+        [523, 659, 784].forEach((f) => osc('triangle', t + 0.48, 0.7, 0.16, [[0, f], [0.7, f]])); },
+      band
     };
     function play(name, delay = 0) { if (!ready() || !S[name]) return; try { S[name](ctx.currentTime + 0.01 + delay); } catch (e) {} }
     return { play, unlock, get on() { return on; } };
@@ -599,6 +821,99 @@ main{position:relative;z-index:2}
     setTimeout(function loop() { bonk(); setTimeout(loop, 30000); }, 8000);
     $('rooster2').addEventListener('click', (e) => { Sfx.play('crow'); retrigger(e.currentTarget, 'crow'); });
     return { speak, bonk };
+  })();
+
+  /* ---------- Live Goa sky: phase, sun/moon, festoon lights and countdown follow Goa time (IST) ---------- */
+  const Sky = (() => {
+    const root = document.documentElement, orb = $('orb'), chip = $('skyChip'), festoon = $('festoon');
+    const IST = 5.5 * 3600e3, WEDDING_DAY = Date.UTC(2027, 0, 9), SUNRISE = 6.9, SUNSET = 18.4;
+    const ICON = { dawn: '🌅', day: '☀️', golden: '🌇', dusk: '🌆', night: '🌙' };
+    let offset = 0;                                        // ?at=2027-01-09T18:30 previews any moment, read as Goa time
+    const at = /[?&]at=(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/.exec(location.search);
+    if (at) offset = Date.UTC(+at[1], at[2] - 1, +at[3], +at[4], +at[5]) - IST - Date.now();
+    const goaNow = () => new Date(Date.now() + offset + IST);  // read with getUTC*
+    let phase = '', live = false, fwTimer = 0;
+
+    function phaseAt(h) {
+      if (h < SUNRISE - 0.6 || h >= SUNSET + 1) return 'night';
+      if (h < SUNRISE + 0.9) return 'dawn';
+      if (h < SUNSET - 1.6) return 'day';
+      if (h < SUNSET - 0.3) return 'golden';
+      return 'dusk';
+    }
+    function placeOrb(h) {
+      let f;
+      if (phase === 'night') f = ((h - (SUNSET + 0.6) + 24) % 24) / (24 - (SUNSET - SUNRISE) - 1.2);
+      else f = (h - (SUNRISE - 0.6)) / (SUNSET - SUNRISE + 1.2);
+      f = Math.min(1, Math.max(0, f));
+      orb.style.setProperty('--ox', `${6 + f * 88}%`);
+      orb.style.setProperty('--oy', `${80 - Math.sin(Math.PI * f) * 66}%`);
+      orb.style.setProperty('--os', innerWidth < 600 ? '64px' : '92px');
+    }
+    function countdown(n, h) {
+      const days = Math.round((WEDDING_DAY - Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate())) / 864e5);
+      live = (days === 0 && h >= 18) || (days === -1 && h < 4);
+      if (live) return 'We’re getting married right now 💍';
+      if (days > 1) return `${days} days to go`;
+      if (days === 1) return 'Tomorrow! 💍';
+      if (days === 0) return 'Today! 6 pm 💍';
+      return 'Married on 9 Jan 2027 💙';
+    }
+    function clock(n) {
+      const hh = n.getUTCHours(), mm = String(n.getUTCMinutes()).padStart(2, '0');
+      return `${hh % 12 || 12}:${mm} ${hh < 12 ? 'am' : 'pm'}`;
+    }
+    function firework() {
+      if (document.hidden || reduceMQ.matches) return;
+      const fw = document.createElement('div'); fw.className = 'fw'; fw.setAttribute('aria-hidden', 'true');
+      fw.style.left = `${10 + Math.random() * 80}vw`; fw.style.top = `${8 + Math.random() * 28}vh`;
+      const c = pick(['#f4b63a', '#ff8fa3', '#8fd3ff', '#a8e6a1', '#fffdf8']);
+      for (let i = 0; i < 18; i++) {
+        const s = document.createElement('i');
+        s.style.setProperty('--a', `${i * 20}deg`); s.style.setProperty('--r', `${50 + Math.random() * 40}px`); s.style.setProperty('--c', c);
+        fw.appendChild(s);
+      }
+      document.body.appendChild(fw); setTimeout(() => fw.remove(), 1500);
+    }
+    function update() {
+      const n = goaNow(), h = n.getUTCHours() + n.getUTCMinutes() / 60;
+      phase = phaseAt(h); root.dataset.sky = phase; placeOrb(h);
+      chip.textContent = `${ICON[phase]} ${clock(n)} in Goa · ${countdown(n, h)}`;
+      root.classList.toggle('live', live);
+      if (live && !fwTimer) fwTimer = setInterval(firework, 2600);
+      if (!live && fwTimer) { clearInterval(fwTimer); fwTimer = 0; }
+    }
+    function stars() {
+      const box = $('stars');
+      for (let i = 0; i < 46; i++) {
+        const s = document.createElement('i');
+        s.style.left = `${Math.random() * 100}%`; s.style.top = `${Math.random() * 100}%`;
+        s.style.setProperty('--t', `${2 + Math.random() * 3}s`); s.style.animationDelay = `${-Math.random() * 4}s`;
+        if (i % 7 === 0) { s.style.width = s.style.height = '4px'; }
+        box.appendChild(s);
+      }
+    }
+    function lights() {                                    // festoon bulbs swagged across the top of the page
+      const w = innerWidth, swag = w < 600 ? 160 : 240, n = Math.ceil(w / swag), colors = ['#f4b63a', '#ff8fa3', '#8fd3ff', '#a8e6a1', '#fffdf8'];
+      let paths = '', bulbs = '', k = 0;
+      for (let i = 0; i < n; i++) {
+        const x0 = i * swag, x1 = x0 + swag, xm = x0 + swag / 2;
+        paths += `M${x0},4 Q${xm},64 ${x1},4 `;
+        for (const t of [0.12, 0.31, 0.5, 0.69, 0.88]) {
+          const x = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * xm + t * t * x1, y = (1 - t) * (1 - t) * 4 + 2 * (1 - t) * t * 64 + t * t * 4;
+          const c = colors[k++ % colors.length];
+          bulbs += `<g class="bulb" style="--d:${(-Math.random() * 2).toFixed(2)}s;--t:${(1.2 + Math.random()).toFixed(2)}s">` +
+            `<circle cx="${x.toFixed(1)}" cy="${(y + 7).toFixed(1)}" r="10" fill="${c}" opacity=".28"/>` +
+            `<circle cx="${x.toFixed(1)}" cy="${(y + 7).toFixed(1)}" r="4.6" fill="${c}" stroke="#1d2742" stroke-width="1"/></g>`;
+        }
+      }
+      festoon.innerHTML = `<svg viewBox="0 0 ${w} 90" preserveAspectRatio="none"><path d="${paths}" fill="none" stroke="#1d2742" stroke-width="1.6"/>${bulbs}</svg>`;
+    }
+    stars(); lights(); update();
+    setInterval(update, 30000);
+    let rt = 0;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { lights(); update(); }, 200); });
+    return { update, get phase() { return phase; }, get live() { return live; } };
   })();
 
   /* ---------- Tile curtain transition ---------- */
@@ -814,6 +1129,218 @@ main{position:relative;z-index:2}
     taunt.classList.remove('on'); tries.textContent = ''; yesBtn.style.removeProperty('--grow');
   }
 
+  /* ---------- Ride to Corjuem: optional moped mini-game between the quiz and the invitation ---------- */
+  const Ride = (() => {
+    const el = $('ride'), stageEl = $('rStage'), moped = $('rMoped'), packEl = $('rPack'), obsEl = $('rObs'), worldEl = $('rWorld');
+    const hills = $('rHills'), town = $('rTown'), dash = $('rDash');
+    const hud = $('rHud'), fill = $('rFill'), me = $('rMe'), score = $('rScore');
+    const panel = $('rPanel'), pTitle = $('rPanelTitle'), pText = $('rPanelText'), pGo = $('rGo'), pSkip = $('rPanelSkip');
+    const LENGTH = 8800, V0 = 330, V1 = 410, GRAVITY = 2000, JUMP = 820, PACK_W = 430, VENUE_AT = LENGTH + 260;
+    const WHEEL_HALF = 60, WHEEL_OFFSET = 160;              // wheel hit box: centre and half-width, in stage px from moped left
+    // [distance, kind, biscuit height above the road]
+    const COURSE = [
+      [800, 'b', 110], [1000, 'b', 110], [1200, 'b', 110],
+      [1650, 'pothole'], [2250, 'coco'], [2250, 'b', 290], [2850, 'cow'], [2850, 'b', 320],
+      [3350, 'pothole'], [3700, 'b', 110], [3850, 'b', 280], [4300, 'coco'],
+      [4850, 'pothole'], [5250, 'pothole'], [5700, 'b', 240], [5800, 'cow'], [5800, 'b', 320], [5900, 'b', 240],
+      [6400, 'b', 110], [6550, 'b', 110], [6900, 'coco'], [7400, 'cow'], [7900, 'pothole'], [7900, 'b', 290],
+      [8300, 'b', 110], [8450, 'b', 110]
+    ];
+    const HIT = { pothole: [46, 3], coco: [30, 34], cow: [64, 54] };   // [hit width, hit height]
+    const GLYPH = { b: '<span>🍪</span>', coco: '🥥', cow: '🐄', pothole: '' };
+    const OUCH = { pothole: ['BUMP!', 'Pothole! 🕳️', 'Oof!'], coco: ['BONK! 🥥', 'Coconut!'], cow: ['MOOO! 🐄', 'Holy cow!'] };
+    const TOTAL = COURSE.filter((c) => c[1] === 'b').length;
+    let W = 0, mx = 0, ref = 0, state = 'off', raf = 0, last = 0, timers = [];
+    const PACK_GAP = 90;                                     // resting distance between the pack and the moped
+    const DOGS = [['husky', 105, 74], ['indie', 103, 74], ['lab', 120, 67], ['cream', 98, 71]];   // [file, width, height]
+    const LEAP_X = 50, LEAP_Y = 150;                        // catching dog's jump: forward and up, stage px
+    let d = 0, v = 0, y = 0, vy = 0, air = false, buffer = 0, slow = 0, gap = PACK_GAP, exitX = 0;
+    let fed = 0, bonks = 0, items = [], next = 0, venue = null, onDone = () => {};
+    const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+
+    function layout() {
+      const scale = Math.max(0.5, Math.min(1.3, innerWidth / 680, innerHeight * 0.56 / 420));
+      W = innerWidth / scale;
+      stageEl.style.width = `${W}px`; stageEl.style.transform = `scale(${scale})`;
+      hills.style.width = `${W + 1200}px`; town.style.width = `${W + 1600}px`; dash.style.width = `${W + 92}px`;
+      mx = Math.max(60, Math.min(340, W * 0.2)); ref = mx + WHEEL_OFFSET;
+      render();
+    }
+    function render() {
+      hills.style.transform = `translate3d(${-(d * 0.18 % 1200)}px,0,0)`;
+      town.style.transform = `translate3d(${-(d * 0.55 % 1600)}px,0,0)`;
+      dash.style.transform = `translate3d(${-(d % 92)}px,0,0)`;
+      const tilt = air ? Math.max(-12, Math.min(8, -vy * 0.012)) : 0;
+      moped.style.transform = `translate3d(${mx + exitX}px,${-y}px,0) rotate(${tilt}deg)`;
+      packEl.style.transform = `translate3d(${mx + 60 - gap - PACK_W + exitX * 0.8}px,0,0)`;
+      for (const it of items) it.el.style.transform = `translate3d(${ref + it.p - d - it.w / 2}px,${-it.h}px,0)`;
+      venue.style.transform = `translate3d(${ref + VENUE_AT - d - 220}px,0,0)`;
+      const k = Math.min(1, d / LENGTH);
+      fill.style.width = `${k * 100}%`; me.style.left = `${k * 100}%`;
+    }
+    function spawn() {
+      while (next < COURSE.length && COURSE[next][0] - d < W - ref + 160) {
+        const [p, kind, h = 0] = COURSE[next++];
+        const e = document.createElement('div');
+        e.className = `r-ob r-${kind === 'b' ? 'biscuit' : kind}`; e.innerHTML = GLYPH[kind];
+        obsEl.appendChild(e);
+        items.push({ p, kind, h, el: e, w: e.offsetWidth, done: false });
+      }
+    }
+    function floatText(text, x, h, good) {
+      const f = document.createElement('span'); f.className = `r-float${good ? ' good' : ''}`; f.textContent = text;
+      f.style.left = `${x}px`; f.style.bottom = `${26 + h}px`;
+      stageEl.appendChild(f); setTimeout(() => f.remove(), 950);
+    }
+    function collect(it, sx) {
+      const packRight = mx + 60 - gap;                     // measured before the fed pack drops back
+      it.done = true; fed += 1; gap = Math.min(220, gap + 24);
+      score.textContent = `🍪 ${fed}`; retrigger(score, 'bump');
+      Sfx.play('pop');
+      it.el.remove(); it.gone = true;
+      floatText('+1', sx, it.h + 30, true);
+      // one dog leaps out of the pack and catches the biscuit at the top of its jump
+      const [name, w0, h0] = pick(DOGS), dw = w0 * 0.85, dh = h0 * 0.85;
+      const dogX = packRight - dw - 10, catchX = dogX + LEAP_X + dw * 0.9 - 15, catchY = 12 + LEAP_Y + dh * 0.62 - 15;
+      const fromX = sx - 15, fromY = 26 + it.h;
+      const t = document.createElement('span'); t.className = 'r-toss'; t.textContent = '🍪';
+      t.style.left = `${fromX}px`; t.style.bottom = `${fromY}px`;
+      t.style.setProperty('--dx', `${catchX - fromX}px`); t.style.setProperty('--dy', `${fromY - catchY}px`);
+      stageEl.appendChild(t);
+      setTimeout(() => {
+        if (state === 'off') return;
+        const dog = document.createElement('div'); dog.className = 'r-dog';
+        dog.innerHTML = `<img src="assets/dog-${name}.svg" alt="">`;
+        dog.style.left = `${dogX}px`; dog.style.width = `${dw}px`; dog.style.height = `${dh}px`;
+        dog.style.setProperty('--lx', `${LEAP_X}px`); dog.style.setProperty('--ly', `${-LEAP_Y}px`);
+        stageEl.appendChild(dog); setTimeout(() => dog.remove(), 850);
+      }, 110);
+      setTimeout(() => {
+        t.remove();
+        if (state === 'off') return;
+        floatText(pick(['CHOMP!', 'Yum! 💛', 'Gulp!', 'Good boy!']), catchX - 10, catchY + 10, true);
+        Sfx.play('yip');
+      }, 550);
+    }
+    function bonk(it, sx) {
+      it.done = true; bonks += 1; slow = 0.5; gap = Math.max(10, gap - 70);
+      retrigger(moped, 'hit'); it.el.classList.add('knocked');
+      Sfx.play('bonk'); Sfx.play('bark', 0.15);
+      floatText(pick(OUCH[it.kind]), sx - 30, 130);
+    }
+    function collide() {
+      for (const it of items) {
+        if (it.done) continue;
+        const sx = ref + it.p - d;
+        if (it.kind === 'b') {
+          const mid = it.h + 17;
+          if (Math.abs(sx - (mx + 142)) < 106 && mid > y + 10 && mid < y + 205) collect(it, sx);
+        } else {
+          const [hw, hh] = HIT[it.kind];
+          if (sx + hw / 2 > ref - WHEEL_HALF && sx - hw / 2 < ref + WHEEL_HALF && y < hh) bonk(it, sx);
+        }
+      }
+      items = items.filter((it) => {
+        if (it.gone) return false;
+        if (ref + it.p - d < -260) { it.el.remove(); return false; }
+        return true;
+      });
+    }
+    function jump() {
+      if (state !== 'run') return;
+      if (air) { buffer = 0.14; return; }
+      air = true; vy = JUMP; Sfx.play('slide');
+    }
+    function step(dt) {
+      if (state === 'run') {
+        const target = V0 + (V1 - V0) * Math.min(1, d / LENGTH);
+        v += ((slow > 0 ? target * 0.55 : target) - v) * Math.min(1, dt * (slow > 0 ? 10 : 2.5));
+        slow = Math.max(0, slow - dt);
+        d += v * dt;
+        gap += (PACK_GAP - gap) * Math.min(1, dt * 0.35);
+        spawn(); collide();
+        if (d >= LENGTH) arrive();
+      } else if (state === 'arrive' || state === 'done') {
+        v = Math.min(900, v + 700 * dt); exitX += v * dt;   // ride on through the arch
+        if (state === 'arrive' && mx + exitX > W + 40) { state = 'done'; showPanel('end'); }
+      }
+      if (air) {
+        vy -= GRAVITY * dt; y += vy * dt;
+        if (y <= 0) { y = 0; vy = 0; air = false; if (buffer > 0) jump(); }
+      }
+      buffer = Math.max(0, buffer - dt);
+    }
+    function frame(t) {
+      raf = requestAnimationFrame(frame);
+      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+      step(dt); render();
+    }
+    function arrive() {
+      state = 'arrive'; hud.hidden = true;
+      Sfx.play('honk'); Sfx.play('crow', 0.5); Sfx.play('band', 0.9);
+      floatText('You made it! 🎉', mx + 40, 230, true);
+    }
+    function showPanel(kind) {
+      if (kind === 'intro') {
+        pTitle.textContent = 'Ride to Corjuem 🛵';
+        pText.innerHTML = 'The dogs are after your biscuits! <b>Tap anywhere</b> (or press space) to jump potholes, coconuts and cows. Grab 🍪 to toss to the pack.';
+        pGo.textContent = 'LET’S RIDE!'; pSkip.hidden = false;
+      } else {
+        pTitle.textContent = fed === TOTAL && !bonks ? 'Perfect ride! 🏆' : fed >= TOTAL * 0.6 ? 'You made it to Corjuem! 🎉' : 'You made it… the dogs are still hungry 🐕';
+        pText.innerHTML = `You fed the pack <b>${fed} of ${TOTAL}</b> biscuits` +
+          (bonks ? ` and hit <b>${bonks}</b> ${bonks === 1 ? 'bump' : 'bumps'} on the way.` : ' without a single bump.');
+        pGo.textContent = 'OPEN YOUR INVITE 💌'; pSkip.hidden = true;
+      }
+      panel.hidden = false; pTitle.focus({ preventScroll: true });
+    }
+    function go() {
+      panel.hidden = true; hud.hidden = false; state = 'count';
+      ['3', '2', '1', 'GO!'].forEach((txt, i) => later(() => {
+        const c = document.createElement('div'); c.className = 'r-count'; c.textContent = txt; c.setAttribute('aria-hidden', 'true');
+        el.appendChild(c); setTimeout(() => c.remove(), 820);
+        if (txt !== 'GO!') { Sfx.play('pop'); return; }
+        Sfx.play('honk'); Sfx.play('bark', 0.3);
+        state = 'run'; v = V0 * 0.4;
+        const tip = document.createElement('span'); tip.className = 'r-pill r-tip'; tip.textContent = '👆 Tap anywhere to jump';
+        el.appendChild(tip); setTimeout(() => tip.remove(), 3500);
+      }, i * 650));
+    }
+    function reset() {
+      d = 0; v = 0; y = 0; vy = 0; air = false; buffer = 0; slow = 0; gap = PACK_GAP; exitX = 0; fed = 0; bonks = 0; next = 0;
+      items = []; obsEl.textContent = ''; score.textContent = '🍪 0'; hud.hidden = true; state = 'intro';
+      el.querySelectorAll('.r-float,.r-toss,.r-dog,.r-count,.r-tip').forEach((n) => n.remove());
+      worldEl.innerHTML = '<div class="r-ob r-venue"><img src="assets/ride-venue.svg" alt="" width="440" height="340"></div>';
+      venue = worldEl.firstElementChild;
+    }
+    function open(done) {
+      onDone = done; reset();
+      el.hidden = false; document.body.classList.add('riding');
+      window.addEventListener('resize', layout); layout();
+      showPanel('intro');
+      last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
+    }
+    function close() {
+      cancelAnimationFrame(raf); raf = 0; state = 'off';
+      timers.forEach(clearTimeout); timers = [];
+      el.hidden = true; document.body.classList.remove('riding');
+      window.removeEventListener('resize', layout);
+    }
+    const leave = (res) => { if (state === 'off' || state === 'leaving') return; state = 'leaving'; timers.forEach(clearTimeout); timers = []; onDone(res); };
+    pGo.addEventListener('click', () => {
+      if (state === 'intro') { Sfx.play('honk'); go(); }
+      else if (state === 'done') leave({ fed, total: TOTAL, band: true });
+    });
+    pSkip.addEventListener('click', () => leave({}));
+    $('rSkip').addEventListener('click', () => leave({}));
+    el.addEventListener('pointerdown', (e) => { if (!e.target.closest('button, .r-panel')) { e.preventDefault(); jump(); } });
+    window.addEventListener('keydown', (e) => {
+      if (el.hidden) return;
+      if (e.key === 'Escape') { leave({}); return; }
+      if (e.code === 'Space' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { if (state === 'run') { e.preventDefault(); jump(); } }
+    });
+    return { open, close, _state: () => ({ state, d, v, y, fed, bonks, gap, items: items.length, total: TOTAL }) };
+  })();
+
   /* ---------- Flow ---------- */
   let qi = 0, locked = false, timer = 0;
 
@@ -886,11 +1413,18 @@ main{position:relative;z-index:2}
         return;
       }
       qi += 1;
-      if (qi < QUESTIONS.length) renderQuestion('flip'); else wipe('🎉', finish);
+      if (qi < QUESTIONS.length) renderQuestion('flip');
+      else if (reduceMQ.matches) wipe('🎉', () => finish());
+      else wipe('🛵', startRide);
     }, reduceMQ.matches ? 300 : 700);
   }
 
-  function finish() {
+  function startRide() {
+    Slippery.stop(); stage.hidden = true;
+    Ride.open((res) => wipe('🎉', () => { Ride.close(); finish(res); }));
+  }
+
+  function finish(res = {}) {
     Slippery.stop();
     stage.hidden = true; success.hidden = false; inviteWrap.hidden = false;
     const title = $('invitedTitle');
@@ -899,7 +1433,11 @@ main{position:relative;z-index:2}
     window.scrollTo(0, 0);
     title.focus({ preventScroll: true });
     confetti(); zoomer();
-    Sfx.play('fanfare', 0.15); Sfx.play('crow', 1.1); Sfx.play('honk', 0.6); Sfx.play('bark', 0.95); Sfx.play('meow', 1.6);
+    const sc = $('rideScore');
+    sc.hidden = !res.total;
+    if (res.total) sc.textContent = `🛵 Rode to Corjuem · fed the pack ${res.fed} of ${res.total} 🍪`;
+    if (res.band) { Sfx.play('crow', 0.2); Sfx.play('bark', 0.6); Sfx.play('meow', 1.1); }
+    else { Sfx.play('band', 0.15); Sfx.play('crow', 8.4); }
   }
 
   function zoomer() {
@@ -952,6 +1490,14 @@ main{position:relative;z-index:2}
     $('invite').scrollIntoView({ behavior: reduceMQ.matches ? 'auto' : 'smooth', block: 'start' });
   });
   $('restartBtn').addEventListener('click', restart);
+  let bandTimer = 0;
+  $('bandBtn').addEventListener('click', (e) => {
+    const dance = document.querySelector('.dance');
+    if (!Sfx.on) retrigger($('sfxBtn'), 'nudge');
+    Sfx.play('band');
+    dance.classList.add('playing'); clearTimeout(bandTimer); bandTimer = setTimeout(() => dance.classList.remove('playing'), 8200);
+    popFrom(e.currentTarget, ['🎺', '🎷', '🥁', '🎶', '💃', '🕺'], 10);
+  });
   $('sceneBtn').addEventListener('click', (e) => {
     const b = e.currentTarget; if (!reduceMQ.matches) retrigger(b, 'honk');
     Sfx.play('honk'); Sfx.play('bark', 0.35); Sfx.play('yip', 0.75); Sfx.play('bark', 0.95); Sfx.play('meow', 1.3);
@@ -1003,7 +1549,7 @@ main{position:relative;z-index:2}
     status.textContent = ''; status.className = 'rsvp-status';
   }
 
-  window.__wedding = { Slippery, Sfx, Rooster, state: () => ({ qi, locked, attempts }), RSVP_URL };
+  window.__wedding = { Slippery, Sfx, Rooster, Sky, Ride, state: () => ({ qi, locked, attempts }), RSVP_URL };
   show('open');
 })();
 </script>

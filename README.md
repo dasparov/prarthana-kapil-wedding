@@ -14,14 +14,27 @@ Quiz-gated invitation site with an RSVP form that writes to a Google Sheet.
 
 ```
 docs/          GitHub Pages site (served from main branch, /docs)
-  index.html   whole page: markup, CSS, quiz + RSVP JS (RSVP_URL constant)
+  index.html   whole page: markup, CSS, JS (quiz, ride game, live sky, brass band, RSVP_URL constant)
   assets/      SVG illustrations and tiles
+    moped.svg, pack.svg, dog-*.svg  cut from parade.svg for the ride game
+    ride-*.svg   ride backdrops (hills, Goan street, venue arch)
   og-image.jpg link-preview image (absolute URL in og:image)
 apps-script/   Google Apps Script backing the RSVP form (managed with clasp)
   Code.gs      doPost appends a row to the "RSVPs" tab
   appsscript.json  web app: executes as owner, anyone (anonymous) can submit
   .clasp.json  binds this folder to the script project above
 ```
+
+## What guests get
+
+1. YES/NO card (NO runs away), then 3 quiz questions.
+2. **Ride to Corjuem**: optional ~25 s moped game. Tap/space to jump potholes, coconuts and cows; biscuits get tossed back and a dog leaps to catch each one. Skippable at any time (Skip button, Esc); skipped automatically for reduced-motion users. Course is the `COURSE` table in the `Ride` module.
+3. Arrival plays the Goan **brass band** (synthesised, no audio files); it also plays on the invitation via "Cue the brass band".
+4. Invitation + RSVP.
+
+The **sky follows real Goa time** (IST): sunrise, day, golden hour, sunset, night (moon, stars, festoon lights), and the top-left chip counts down to the wedding. From 6 pm on 9 Jan 2027 until 4 am it switches to "We're getting married right now" with fireworks.
+
+Preview any moment with `?at=YYYY-MM-DDTHH:MM` (Goa time), e.g. `…/?at=2027-01-09T18:30` or `…/?at=2026-12-01T21:00`.
 
 ## Site changes
 
