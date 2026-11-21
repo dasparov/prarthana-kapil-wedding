@@ -27,10 +27,11 @@ apps-script/   Google Apps Script backing the RSVP form (managed with clasp)
 
 ## What guests get
 
-1. YES/NO card (NO runs away), then 3 quiz questions.
-2. **Ride to Corjuem**: optional ~9 s moped game. Tap/space to jump a pothole, a coconut and a cow; biscuits get tossed back and a dog leaps to catch each one. Skippable at any time (Skip button, Esc); skipped automatically for reduced-motion users. Course is the `COURSE` table in the `Ride` module.
-3. Arrival plays the Goan **brass band** (synthesised, no audio files); it also plays on the invitation via "Cue the brass band".
-4. Invitation + RSVP.
+1. YES/NO card (NO runs away).
+2. **One question**: "The DJ owes you one song. What's it gonna be?" Guests type a song (examples cycle in the placeholder) or tap "Surprise me, DJ's choice". The song pre-fills the RSVP form's song field, so it reaches the Sheet when they RSVP. Examples and reactions are `SONG_EXAMPLES` / `SONG_CHEERS` / `ROOSTER_SONG` in `index.html`.
+3. Invitation + RSVP. Arrival plays the Goan **brass band** (synthesised, no audio files); it also plays via "Cue the brass band".
+
+**Parked:** the "Ride to Corjuem" moped mini-game (~9 s, dogs catch tossed biscuits) is still in the code but switched off. Set `const RIDE = true` in `index.html` to put it back between the song and the invitation; the course is the `COURSE` table in the `Ride` module.
 
 The **sky follows real Goa time** (IST): sunrise, day, golden hour, sunset, night (moon, stars, festoon lights), and the top-left chip counts down to the wedding. From 6 pm on 9 Jan 2027 until 4 am it switches to "We're getting married right now" with fireworks.
 

@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prarthana &amp; Kapil · 9 January 2027 · Corjuem, Goa</title>
-<meta name="description" content="Want to come to our wedding? 💍 Pass the quiz to unlock your invite. Saturday 9 January 2027, 6 pm onwards, Corjuem, Goa.">
+<meta name="description" content="Want to come to our wedding? 💍 Say yes, pick your one song, unlock your invite. Saturday 9 January 2027, 6 pm onwards, Corjuem, Goa.">
 <meta name="theme-color" content="#1f4f9a">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Prarthana &amp; Kapil are getting married 💍">
-<meta property="og:description" content="Pass the quiz to unlock your invite. Saturday 9 January 2027 · 6 pm onwards · Corjuem, Goa">
+<meta property="og:description" content="Say yes, pick your one song, unlock your invite. Saturday 9 January 2027 · 6 pm onwards · Corjuem, Goa">
 <meta property="og:image" content="https://dasparov.github.io/prarthana-kapil-wedding/og-image.jpg">
 <meta property="og:url" content="https://dasparov.github.io/prarthana-kapil-wedding/">
 <meta property="og:image:type" content="image/jpeg">
@@ -79,11 +79,8 @@ main{position:relative;z-index:2}
   border-radius:22px;box-shadow:9px 9px 0 var(--cobalt);padding:38px 28px 30px;text-align:center}
 .card[data-screen="open"]{touch-action:none;-webkit-user-select:none;user-select:none}
 .card.shake{animation:shake .55s cubic-bezier(.36,.07,.19,.97)}
-.card.flip{animation:flip .6s var(--bounce)}
-.card.jelly{animation:jelly .6s ease}
 @keyframes shake{10%,90%{transform:translateX(-2px) rotate(-.4deg)}20%,80%{transform:translateX(5px) rotate(.8deg)}
   30%,50%,70%{transform:translateX(-10px) rotate(-1.4deg)}40%,60%{transform:translateX(10px) rotate(1.4deg)}}
-@keyframes flip{0%{transform:perspective(900px) rotateY(-95deg) scale(.9)}100%{transform:perspective(900px) rotateY(0) scale(1)}}
 @keyframes jelly{0%,100%{transform:scale(1,1)}25%{transform:scale(1.06,.94)}50%{transform:scale(.95,1.05)}75%{transform:scale(1.02,.98)}}
 .screen{display:flex;flex-direction:column;align-items:center}
 
@@ -146,8 +143,6 @@ main{position:relative;z-index:2}
 .snap.q{margin-bottom:16px;transform:rotate(3deg);animation:snapin .55s var(--bounce) both}
 .snap.q .print{width:118px;height:118px}
 .snap.q::before{width:46px;margin-left:-23px;height:18px;top:-9px}
-.snap.wrong{margin:10px auto 24px;transform:rotate(3deg)}
-.snap.wrong .print{width:180px;height:180px}
 @keyframes wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(-1deg) translateY(-4px)}}
 @keyframes snapin{0%{transform:rotate(-30deg) scale(.2);opacity:0}100%{transform:rotate(3deg) scale(1);opacity:1}}
 
@@ -184,25 +179,25 @@ main{position:relative;z-index:2}
 .tries{position:absolute;left:0;right:0;bottom:14px;margin:0;font-size:12px;color:var(--muted);letter-spacing:.02em;pointer-events:none;padding:0 14px}
 .tries b{color:var(--coral)}
 
-/* quiz */
-.dots{display:flex;gap:6px;justify-content:center;margin:0 0 8px}
-.dots i{width:14px;height:14px;border-radius:3px;border:2px solid var(--cobalt);background:#fff;transition:background .3s,transform .4s var(--bounce)}
-.dots i.done{background:var(--cobalt);transform:rotate(45deg) scale(.9)}
-.dots i.now{background:var(--sun);transform:scale(1.25)}
+/* the one-song question */
 .counter{margin:0 0 10px;font-size:11px;letter-spacing:.17em;color:var(--muted);font-weight:700}
 .q-heading{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.18;letter-spacing:-.015em;margin:0;animation:popin .5s var(--bounce) both .05s}
 .q-heading:focus{outline:none}
 @keyframes popin{0%{transform:scale(.6) rotate(-4deg);opacity:0}100%{transform:none;opacity:1}}
-.answers{display:grid;gap:10px;width:100%;margin-top:22px}
-.answer{width:100%;min-height:48px;padding:10px 16px;border-radius:12px;border:2px solid var(--line);background:#fff;
-  box-shadow:0 3px 0 var(--line);font-family:var(--serif);font-size:17px;line-height:1.25;color:var(--text);cursor:pointer;
-  transition:background-color .15s,border-color .15s,color .15s,transform .2s var(--bounce),box-shadow .15s;
-  animation:drop .55s var(--bounce) both;animation-delay:calc(var(--i) * 90ms + .18s)}
-@keyframes drop{0%{transform:translateY(-40px) rotate(-6deg);opacity:0}100%{transform:none;opacity:1}}
-.answer:hover{border-color:var(--cobalt);box-shadow:0 3px 0 var(--cobalt);transform:rotate(-1.2deg) scale(1.02)}
-.answer.chosen{background:var(--cobalt);border-color:var(--cobalt-dark);box-shadow:0 3px 0 var(--cobalt-dark);color:#fff;transform:scale(1.04) rotate(1deg)}
-.answers.locked .answer{cursor:default}
-.answers.locked .answer:not(.chosen){opacity:.45;transform:scale(.97)}
+.vinyl{position:absolute;z-index:-1;right:-40px;top:12px;width:100px;height:100px;border-radius:50%;
+  background:conic-gradient(rgba(255,255,255,.2) 0 7%,transparent 7% 50%,rgba(255,255,255,.2) 50% 57%,transparent 57%),
+    radial-gradient(circle,var(--sun) 0 13%,#1d2742 14% 16%,#2c3756 17% 29%,#1d2742 30% 32%,#2c3756 33% 46%,#1d2742 47% 49%,#2c3756 50% 69%,#1d2742 70%);
+  box-shadow:0 5px 12px rgba(31,42,68,.25);animation:spinrec 2.2s linear infinite}
+@keyframes spinrec{to{transform:rotate(360deg)}}
+.song-form{display:grid;gap:12px;width:100%;margin-top:22px}
+.song-form input{width:100%;min-height:54px;padding:12px 14px;border:2px solid var(--cobalt);border-radius:14px;background:#fff;
+  box-shadow:0 3px 0 var(--cobalt);font:18px/1.2 var(--serif);color:var(--text);text-align:center}
+.song-form input::placeholder{color:#97a1b7;font-style:italic;transition:opacity .25s}
+.song-form input.swap::placeholder{opacity:0}
+.song-form input:focus{outline:none;box-shadow:0 0 0 3px rgba(244,182,58,.65),0 3px 0 var(--cobalt)}
+.song-form input.nope{border-color:var(--coral);box-shadow:0 3px 0 var(--coral);animation:shake .5s}
+.song-form .btn{width:100%;height:52px}
+#songSkip{margin-top:6px}
 .toast{position:absolute;left:50%;top:14px;z-index:6;transform:translateX(-50%);pointer-events:none;
   background:var(--sun);color:var(--text);border:2px solid var(--text);border-radius:999px;padding:6px 14px;
   font-weight:700;font-size:14px;animation:toast .95s var(--bounce) forwards}
@@ -210,13 +205,6 @@ main{position:relative;z-index:2}
   75%{transform:translateX(-50%) scale(1) rotate(-2deg);opacity:1}100%{transform:translateX(-50%) translateY(-12px) scale(.9);opacity:0}}
 .pop{position:fixed;z-index:40;pointer-events:none;font-size:24px;animation:pop .85s ease-out forwards}
 @keyframes pop{0%{transform:translate(0,0) scale(.4);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(1.15) rotate(var(--r));opacity:0}}
-.wrong-title{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:-.015em;margin:0 0 24px;color:var(--coral);animation:popin .5s var(--bounce) both .2s}
-.wrong-title:focus{outline:none}
-.stamp{position:absolute;z-index:3;left:50%;top:50%;padding:5px 12px;border:3px solid var(--coral);border-radius:6px;
-  color:var(--coral);background:rgba(255,253,248,.55);font-weight:800;font-size:22px;letter-spacing:.12em;
-  transform:translate(-50%,-50%) rotate(-16deg);animation:stamp .35s cubic-bezier(.3,1.5,.5,1) .2s both;
-  mix-blend-mode:multiply;white-space:nowrap}
-@keyframes stamp{0%{transform:translate(-50%,-50%) rotate(-16deg) scale(2.6);opacity:0}100%{transform:translate(-50%,-50%) rotate(-16deg) scale(1);opacity:1}}
 
 /* success */
 .success{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;
@@ -224,7 +212,8 @@ main{position:relative;z-index:2}
 .success .rooster{position:relative;top:auto;left:auto;width:96px;height:96px;margin-bottom:6px;animation:hop 1s ease-in-out infinite}
 .success .rooster .flip{animation:none}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-22px) rotate(-6deg)}60%{transform:translateY(-22px) rotate(6deg)}}
-.passed{font-family:var(--serif);font-size:24px;color:var(--cobalt);margin:0 0 8px;font-style:italic;animation:popin .5s var(--bounce) both}
+.passed{font-family:var(--serif);font-size:24px;color:var(--cobalt);margin:0 0 8px;font-style:italic;max-width:min(92vw,560px);
+  overflow-wrap:anywhere;animation:popin .5s var(--bounce) both}
 .invited{font-family:var(--serif);font-weight:400;font-size:52px;letter-spacing:-.02em;margin:0 0 24px;line-height:1.1}
 .invited:focus{outline:none}
 .invited .ch{display:inline-block;animation:jump .6s var(--bounce) both,wave 2.4s ease-in-out infinite;
@@ -445,7 +434,6 @@ button.r-pill{cursor:pointer}
   .snap.open .print{width:150px;height:150px}
   .snap.open{margin-bottom:20px}
   .q-heading{font-size:26px}
-  .answer{font-size:16px}
   .invited{font-size:42px}
   .names{font-size:34px}
   .frame{padding:9px;box-shadow:6px 6px 0 var(--cobalt)}
@@ -501,22 +489,19 @@ button.r-pill{cursor:pointer}
         <p class="tries" id="tries" aria-live="polite"></p>
       </div>
 
-      <div class="screen" id="s-q" hidden>
-        <figure class="snap q" id="qSnap"><img class="print" id="qPhoto" src="assets/selfie.svg" width="118" height="118" alt=""></figure>
-        <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></div>
-        <p class="counter" id="qCounter">QUESTION 1 OF 3</p>
-        <h2 class="q-heading" id="qText" tabindex="-1"></h2>
-        <div class="answers" id="answers"></div>
-      </div>
-
-      <div class="screen" id="s-wrong" hidden>
-        <figure class="snap wrong">
-          <img class="print" src="assets/skeptic.svg" width="180" height="180"
-               alt="Illustrated snapshot of Prarthana and Kapil looking deeply unconvinced, eyebrows raised">
-          <span class="stamp" aria-hidden="true">REJECTED</span>
+      <div class="screen" id="s-song" hidden>
+        <figure class="snap q" id="songSnap">
+          <span class="vinyl" aria-hidden="true"></span>
+          <img class="print" src="assets/happy.svg" width="118" height="118" alt="Illustrated snapshot of Prarthana and Kapil laughing together">
         </figure>
-        <h2 class="wrong-title" id="wrongTitle" tabindex="-1">Wrong answer!</h2>
-        <button type="button" class="btn btn-yes btn-wide" id="retryBtn">Try again</button>
+        <p class="counter">ONE QUESTION · NO WRONG ANSWERS</p>
+        <h2 class="q-heading" id="songTitle" tabindex="-1">The DJ owes you <span class="accent">one&nbsp;song.</span> 🎶<br>What’s it gonna be?</h2>
+        <form class="song-form" id="songForm" novalidate>
+          <label class="sr" for="songInput">The one song you’d like played at the wedding</label>
+          <input type="text" id="songInput" maxlength="120" autocomplete="off" enterkeyhint="done" placeholder="e.g. Tunak Tunak Tun">
+          <button type="submit" class="btn btn-yes btn-wide">DROP THE NEEDLE 🎶</button>
+        </form>
+        <button type="button" class="linkish" id="songSkip">Surprise me, DJ’s choice 🎧</button>
       </div>
 
       <button type="button" class="rooster" id="rooster" aria-label="Galo the rooster. Tap to hear him crow">
@@ -529,7 +514,7 @@ button.r-pill{cursor:pointer}
     <button type="button" class="rooster" id="rooster2" aria-label="Galo the rooster. Tap to hear him crow">
       <span class="flip"><svg class="galo" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><g class="r-legs"><path class="r-leg1" d="M56,74 L54,92 M50,92 L58,92" stroke="#f4b63a" stroke-width="3.4" stroke-linecap="round" fill="none"/><path class="r-leg2" d="M64,74 L66,92 M62,92 L70,92" stroke="#f4b63a" stroke-width="3.4" stroke-linecap="round" fill="none"/></g><g class="r-body"><g class="r-tail"><path d="M36,52 C14,46 6,24 16,8 C22,26 30,36 40,44Z" fill="#1f4f9a" stroke="#1d2742" stroke-width="1.6"/><path d="M36,54 C10,58 0,40 3,25 C14,40 26,46 40,48Z" fill="#f4b63a" stroke="#1d2742" stroke-width="1.6"/><path d="M38,58 C16,70 3,58 3,47 C16,56 28,56 40,54Z" fill="#c93650" stroke="#1d2742" stroke-width="1.6"/></g><path d="M34,48 C34,72 58,82 75,67 C83,58 79,45 70,41 C60,37 43,39 34,48Z" fill="#1d2742"/><path transform="translate(52,58) scale(0.42)" fill="#f4b63a" d="M0,-6 C-6,-15 -19,-8 -12,3 L0,15 L12,3 C19,-8 6,-15 0,-6Z"/><path transform="translate(64,67) scale(0.34)" fill="#c93650" d="M0,-6 C-6,-15 -19,-8 -12,3 L0,15 L12,3 C19,-8 6,-15 0,-6Z"/><path transform="translate(45,64) scale(0.3)" fill="#ffffff" d="M0,-6 C-6,-15 -19,-8 -12,3 L0,15 L12,3 C19,-8 6,-15 0,-6Z"/><path class="r-wing" d="M45,53 C50,67 64,68 69,56 C60,59 52,57 45,53Z" fill="#1f4f9a" stroke="#ffffff" stroke-width="1"/><g class="r-head"><path d="M63,47 C63,34 67,25 74,22 C81,22 83,32 79,46Z" fill="#1d2742"/><circle cx="72" cy="13" r="3.8" fill="#c93650"/><circle cx="76.5" cy="10.5" r="4.4" fill="#c93650"/><circle cx="81" cy="13" r="3.8" fill="#c93650"/><circle cx="76" cy="22" r="8" fill="#1d2742"/><path class="r-beak" d="M83,20 L93,23.5 L83,27Z" fill="#f4b63a"/><ellipse cx="82" cy="31" rx="3" ry="5" fill="#c93650"/><circle cx="78.5" cy="20" r="2.6" fill="#ffffff"/><circle cx="79.2" cy="20" r="1.2" fill="#000"/></g></g></svg></span>
     </button>
-    <p class="passed">You passed!</p>
+    <p class="passed" id="passedText">Song added to the playlist!</p>
     <h2 class="invited" id="invitedTitle" tabindex="-1" aria-label="You’re invited!"></h2>
     <span class="pill">GUEST STATUS: CONFIRMED</span>
     <p class="ridescore" id="rideScore" hidden></p>
@@ -555,7 +540,7 @@ button.r-pill{cursor:pointer}
           </picture>
         </button>
         <p class="tap-hint" aria-hidden="true">tap the moped 🛵</p>
-        <span class="inv-stamp" aria-hidden="true">QUIZ<br>PASSED<br>★ 2027 ★</span>
+        <span class="inv-stamp" id="invStamp" aria-hidden="true">SONG<br>ADDED<br>★ 2027 ★</span>
         <p><span class="heart" aria-hidden="true">♥</span></p>
         <p class="dance">Save us a dance. ♡<span class="dancers" aria-hidden="true"><span>💃</span><span>🕺</span></span></p>
         <button type="button" class="band-btn" id="bandBtn">🎺 CUE THE BRASS BAND</button>
@@ -572,8 +557,8 @@ button.r-pill{cursor:pointer}
               <label><input type="radio" name="attending" value="No"><span>Sadly can’t 😢</span></label>
             </div>
           </fieldset>
-          <label class="field"><span>A song that gets you dancing</span>
-            <input type="text" name="song" maxlength="120" autocomplete="off"></label>
+          <label class="field"><span>Your song for the playlist</span>
+            <input type="text" name="song" id="rSong" maxlength="120" autocomplete="off"></label>
           <label class="field"><span>A note for us (optional)</span>
             <textarea name="message" maxlength="500" rows="3"></textarea></label>
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -623,26 +608,21 @@ button.r-pill{cursor:pointer}
 (() => {
   'use strict';
   /* ===== Settings =====
-     RSVP_URL: paste your Google Apps Script web app URL (ends in /exec). Empty = RSVP not connected yet. */
+     RSVP_URL: paste your Google Apps Script web app URL (ends in /exec). Empty = RSVP not connected yet.
+     RIDE: the "Ride to Corjuem" moped mini-game between the song and the invitation. Parked for now; true brings it back. */
   const RSVP_URL = 'https://script.google.com/macros/s/AKfycby6ZEA5AO830h3iJ8ukPdYkpCVdiB2x89jaMO07sqBAYAY7TZujsJOrbXbTV6H5y5Lp/exec';
-  const IMG = { selfie: 'assets/selfie.svg', happy: 'assets/happy.svg', scene: 'assets/scene.svg' };
-  const QUESTIONS = [
-    { text: 'Dress code is casual. You’re wearing… 👕', img: 'selfie', answers: [
-      ['Linen shirt. Maximum breeze.', true], ['Shorts and good intentions.', true], ['A full tuxedo. In Goa. In January.', false]] },
-    { text: 'The moped gets chased by dogs. You… 🛵', img: 'scene', answers: [
-      ['Throw biscuits and keep driving.', true], ['Adopt all of them.', true], ['Join the pack. Run alongside.', true]] },
-    { text: 'The DJ plays your song. What happens? 🎶', img: 'happy', answers: [
-      ['I dance like nobody’s filming.', true], ['I request it three more times.', true], ['I leave early to beat traffic.', false]] }
-  ];
+  const RIDE = false;
+  const SONG_EXAMPLES = ['Tunak Tunak Tun', 'Dancing Queen', 'Kajra Re', 'Bebdo', 'Mr. Brightside', 'London Thumakda',
+    'Uptown Funk', 'Sheila Ki Jawani', 'Despacito (if you must)'];
+  const SONG_CHEERS = ['Banger! 🔥', 'Added to the playlist 💃', 'The DJ nodded 🎧', 'Floor-filler ✅', 'Iconic choice 🪩'];
+  const ROOSTER_SONG = ['Kokoroko, what a banger!', 'Galo is already dancing 🐓', 'Bawk! Turn it up!', 'The galo approves 🎶'];
   const TAUNTS = ['Nope 🙅', 'Too slow!', 'Susegad, baba 😌', 'Slippery like soap 🧼', 'Arre, no way!',
     'Ha! Missed 😂', 'Try YES maybe?', 'Not today 💅', 'Faster than a Goa scooter 🛵', 'The dogs can’t catch me either 🐕',
     'You can’t catch me!', 'Wrong button, bestie'];
-  const PRAISE = ['Correct!', 'Obviously.', 'Love that 💙', 'Valid.', '10/10', 'Approved ✅', 'Good guest!', 'Iconic.'];
-  const ROOSTER_YES = ['Kokoroko! 🎉', 'Correct-a-doodle!', 'Bawk yes!', 'The galo approves.'];
   const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
   const $ = (id) => document.getElementById(id);
   const card = $('card'), stage = $('stage'), success = $('success'), inviteWrap = $('inviteWrap');
-  const screens = { open: $('s-open'), q: $('s-q'), wrong: $('s-wrong') };
+  const screens = { open: $('s-open'), song: $('s-song') };
   const pick = (a) => a[Math.floor(Math.random() * a.length)];
   const retrigger = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
 
@@ -1339,36 +1319,33 @@ button.r-pill{cursor:pointer}
   })();
 
   /* ---------- Flow ---------- */
-  let qi = 0, locked = false, timer = 0;
+  let song = '', timer = 0, exampleTimer = 0;
+  const songForm = $('songForm'), songInput = $('songInput');
 
   function show(name, focusEl) {
     for (const k in screens) screens[k].hidden = k !== name;
     card.dataset.screen = name;
     if (name === 'open') Slippery.start(); else Slippery.stop();
+    if (name === 'song') startExamples(); else stopExamples();
     if (focusEl) focusEl.focus({ preventScroll: true });
   }
 
-  function renderQuestion(anim = 'flip') {
-    const q = QUESTIONS[qi];
-    $('qCounter').textContent = `QUESTION ${qi + 1} OF ${QUESTIONS.length}`;
-    [...$('dots').children].forEach((d, i) => { d.className = i < qi ? 'done' : i === qi ? 'now' : ''; });
-    $('qText').textContent = q.text;
-    const ph = $('qPhoto'); ph.src = IMG[q.img];
-    ph.style.objectPosition = q.img === 'scene' ? '76% 70%' : '50% 50%';
-    ph.alt = { selfie: 'Illustrated snapshot of Prarthana and Kapil in a playful selfie',
-               happy: 'Illustrated snapshot of Prarthana and Kapil laughing together',
-               scene: 'Illustration of Prarthana and Kapil on a moped, chased by dogs' }[q.img];
-    const snap = $('qSnap'); snap.style.animation = 'none'; void snap.offsetWidth; snap.style.animation = '';
-    const box = $('answers'); box.textContent = ''; box.classList.remove('locked');
-    q.answers.forEach(([label, ok], i) => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'answer'; b.textContent = label; b.style.setProperty('--i', i);
-      b.addEventListener('click', () => choose(b, ok));
-      box.appendChild(b);
-    });
-    locked = false;
-    show('q', $('qText'));
-    if (anim && !reduceMQ.matches) { retrigger(card, anim); Sfx.play('slide'); }
+  /* placeholder cycles through example songs while the guest thinks */
+  function startExamples() {
+    let i = 0; stopExamples();
+    songInput.placeholder = `e.g. ${SONG_EXAMPLES[0]}`;
+    exampleTimer = setInterval(() => {
+      i = (i + 1) % SONG_EXAMPLES.length;
+      songInput.classList.add('swap');
+      setTimeout(() => { songInput.placeholder = `e.g. ${SONG_EXAMPLES[i]}`; songInput.classList.remove('swap'); }, 250);
+    }, 2200);
+  }
+  function stopExamples() { clearInterval(exampleTimer); exampleTimer = 0; }
+
+  function askSong() {
+    songInput.value = ''; songInput.classList.remove('nope');
+    show('song', $('songTitle'));
+    if (!reduceMQ.matches) Sfx.play('slide');
   }
 
   function toast(text) {
@@ -1388,33 +1365,35 @@ button.r-pill{cursor:pointer}
     }
   }
 
-  function choose(b, ok) {
-    if (locked) return;
-    locked = true;
-    const box = $('answers'); box.classList.add('locked');
-    box.querySelectorAll('.answer').forEach((x) => x.setAttribute('aria-disabled', 'true'));
-    b.classList.add('chosen');
-    if (ok) {
-      toast(pick(PRAISE)); Sfx.play('pop');
-      if (qi === 1) { popFrom(b, ['🐕', '🐶', '🐈', '🦴', '🛵']); Sfx.play('bark', 0.08); Sfx.play('meow', 0.45); }
-      else { popFrom(b, ['💙', '✨', '🌴', '🥥', '💍', '🎉']); }
-      if (Math.random() < 0.6) { Rooster.speak(pick(ROOSTER_YES)); }
+  function pickSong(value) {
+    if (timer) return;                                     // ignore double submits
+    song = value;
+    if (song) {
+      toast(pick(SONG_CHEERS)); Sfx.play('pop');
+      Rooster.speak(pick(ROOSTER_SONG));
+      popFrom(songForm.querySelector('.btn'), ['🎶', '🎵', '💃', '🕺', '🎺', '🪩']);
     } else {
-      Sfx.play('buzz');
+      toast('DJ’s choice it is 🎧'); Sfx.play('slide');
     }
     timer = setTimeout(() => {
-      if (!ok) {
-        show('wrong', $('wrongTitle'));
-        if (!reduceMQ.matches) retrigger(card, 'shake');
-        Rooster.speak('BAWK?! 😱', 'angry'); Sfx.play('bawk', 0.1);
-        return;
-      }
-      qi += 1;
-      if (qi < QUESTIONS.length) renderQuestion('flip');
-      else if (reduceMQ.matches) wipe('🎉', () => finish());
-      else wipe('🛵', startRide);
-    }, reduceMQ.matches ? 300 : 700);
+      timer = 0;
+      if (RIDE && !reduceMQ.matches) wipe('🛵', startRide);
+      else wipe('🎉', () => finish());
+    }, reduceMQ.matches ? 300 : 800);
   }
+  songForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = songInput.value.trim();
+    if (!value) {
+      retrigger(songInput, 'nope'); Sfx.play('buzz');
+      Rooster.speak('Bawk? Type a song, or let the DJ choose 🎧', 'angry'); Sfx.play('bawk', 0.1);
+      songInput.focus();
+      return;
+    }
+    songInput.blur();                                      // drop the phone keyboard before the curtain
+    pickSong(value);
+  });
+  $('songSkip').addEventListener('click', () => pickSong(''));
 
   function startRide() {
     Slippery.stop(); stage.hidden = true;
@@ -1430,6 +1409,9 @@ button.r-pill{cursor:pointer}
     window.scrollTo(0, 0);
     title.focus({ preventScroll: true });
     confetti(); zoomer();
+    $('passedText').textContent = song ? `“${song}” is on the playlist 🎶` : 'DJ’s choice it is 🎧';
+    $('invStamp').innerHTML = song ? 'SONG<br>ADDED<br>★ 2027 ★' : 'DJ’S<br>CHOICE<br>★ 2027 ★';
+    $('rSong').value = song;
     const sc = $('rideScore');
     sc.hidden = !res.total;
     if (res.total) sc.textContent = `🛵 Rode to Corjuem · fed the pack ${res.fed} of ${res.total} 🍪`;
@@ -1465,9 +1447,9 @@ button.r-pill{cursor:pointer}
   }
 
   function restart() {
-    clearTimeout(timer);
+    clearTimeout(timer); timer = 0;
     wipe('🐓', () => {
-      qi = 0; locked = false; resetTaunts(); resetRsvp();
+      song = ''; resetTaunts(); resetRsvp();
       success.hidden = true; inviteWrap.hidden = true; stage.hidden = false;
       window.scrollTo(0, 0);
       show('open', yesBtn);
@@ -1478,10 +1460,8 @@ button.r-pill{cursor:pointer}
     Sfx.play('boing'); Sfx.play('crow', 0.2);
     Rooster.speak('Cock-a-doodle-YES! 🎉');
     popFrom(yesBtn, ['💍', '🎉', '💙', '✨']);
-    qi = 0;
-    wipe('🛵', () => renderQuestion(null));
+    wipe('🎶', askSong);
   });
-  $('retryBtn').addEventListener('click', () => { Sfx.play('pop'); renderQuestion('jelly'); });
   $('arrowBtn').addEventListener('click', () => {
     Sfx.play('slide');
     $('invite').scrollIntoView({ behavior: reduceMQ.matches ? 'auto' : 'smooth', block: 'start' });
@@ -1542,11 +1522,11 @@ button.r-pill{cursor:pointer}
   });
   $('rAgain').addEventListener('click', resetRsvp);
   function resetRsvp() {
-    form.reset(); form.hidden = false; done.hidden = true;
+    form.reset(); $('rSong').value = song; form.hidden = false; done.hidden = true;
     status.textContent = ''; status.className = 'rsvp-status';
   }
 
-  window.__wedding = { Slippery, Sfx, Rooster, Sky, Ride, state: () => ({ qi, locked, attempts }), RSVP_URL };
+  window.__wedding = { Slippery, Sfx, Rooster, Sky, Ride, state: () => ({ song, attempts }), RSVP_URL };
   show('open');
 })();
 </script>
