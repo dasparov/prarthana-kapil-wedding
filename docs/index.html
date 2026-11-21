@@ -626,6 +626,25 @@ button.r-pill{cursor:pointer}
   const pick = (a) => a[Math.floor(Math.random() * a.length)];
   const retrigger = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
 
+  /* ---------- Flaky networks: re-request images that fail or stall (some Indian ISPs throttle github.io) ---------- */
+  (() => {
+    const MAX_TRIES = 3, STALL_MS = 8000;
+    const loaded = (img) => img.complete && img.naturalWidth > 0;
+    function retry(img) {
+      const n = Number(img.dataset.retry || 0);
+      if (n >= MAX_TRIES || loaded(img)) return;
+      img.dataset.retry = String(n + 1);
+      const fresh = (url) => `${url.split('?')[0]}?r=${n + 1}`;   // new URL so the stalled request is abandoned
+      if (img.parentElement && img.parentElement.tagName === 'PICTURE') {
+        img.parentElement.querySelectorAll('source').forEach((s) => { s.srcset = fresh(s.srcset); });
+      }
+      img.src = fresh(img.getAttribute('src'));
+      setTimeout(() => retry(img), STALL_MS * (n + 2));
+    }
+    window.addEventListener('error', (e) => { if (e.target instanceof HTMLImageElement) setTimeout(() => retry(e.target), 1200); }, true);
+    setTimeout(() => document.querySelectorAll('img').forEach(retry), STALL_MS);
+  })();
+
   /* ---------- Sound effects (synthesised, no files) ---------- */
   const Sfx = (() => {
     let ctx = null, master = null, on = true;
