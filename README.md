@@ -29,7 +29,7 @@ apps-script/   Google Apps Script backing the RSVP form (managed with clasp)
 
 1. YES/NO card (NO runs away).
 2. **One question**: "The DJ owes you one song. What's it gonna be?" Guests type a song (examples cycle in the placeholder) or tap "Surprise me, DJ's choice". The song pre-fills the RSVP form's song field, so it reaches the Sheet when they RSVP. Examples and reactions are `SONG_EXAMPLES` / `SONG_CHEERS` / `ROOSTER_SONG` in `index.html`.
-3. Invitation + RSVP. Arrival plays the Goan **brass band** (synthesised, no audio files); it also plays via "Cue the brass band".
+3. Invitation + RSVP. Arrival plays the Goan **brass band** (synthesised, no audio files); it also plays via "Cue the brass band". An "RSVP NOW" button on the "You're invited!" screen and a floating "RSVP" pill (shown until the form is on screen or sent) keep the form one tap away.
 
 **Parked:** the "Ride to Corjuem" moped mini-game (~9 s, dogs catch tossed biscuits) is still in the code but switched off. Set `const RIDE = true` in `index.html` to put it back between the song and the invitation; the course is the `COURSE` table in the `Ride` module.
 
